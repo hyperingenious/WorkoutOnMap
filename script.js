@@ -46,15 +46,16 @@ class Cycling extends Workout {
     return this.speed;
   }
 }
-const run1 = new Running([23, -12], 5.2, 24, 178);
-const cycling = new Cycling([23, -12], 527, 4, 78);
+// const run1 = new Running([23, -12], 5.2, 24, 178);
+// const cycling = new Cycling([23, -12], 527, 4, 78);
+// console.log(run1, cycling);
 
-console.log(run1, cycling);
 /////////////////////////////////////////////////////////////////////////////////////////////
 // APLLICATION ARCHITECTURE
 class App {
   #map;
   #mapEvent;
+  #workouts = [];
 
   constructor() {
     this._getPosition();
@@ -99,13 +100,6 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
-    // Clear input fields
-    inputCadence.value =
-      inputDistance.value =
-      inputDuration.value =
-      inputElevation.value =
-        '';
-
     //Display marker
     const { lat, lng } = this.#mapEvent.latlng;
     L.marker([lat, lng])
@@ -123,6 +117,22 @@ class App {
       .openPopup();
 
     form.classList.add('hidden');
+
+    this.#workouts.push(
+      new Running(
+        [lat, lng],
+        inputDistance.value,
+        inputDuration.value,
+        inputCadence.value
+      )
+    );
+
+    // clear input fields
+    inputCadence.value =
+      inputDistance.value =
+      inputDuration.value =
+      inputElevation.value =
+        '';
   }
 }
 const app = new App();
