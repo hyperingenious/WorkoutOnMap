@@ -40,14 +40,7 @@ if (navigator.geolocation) {
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  const date = new Date();
-  const selected_option = inputType.options[inputType.selectedIndex].value;
-  const popup_content = `${
-    inputType.value.charAt(0).toUpperCase() + inputType.value.substring(1)
-  } on ${date.getDate()}th ${months[date.getMonth()]}`;
   const { lat, lng } = mapEvent.latlng;
-
-  // Setting the popup-marker on map
   L.marker([lat, lng])
     .addTo(map)
     .bindPopup(
@@ -56,71 +49,20 @@ form.addEventListener('submit', function (e) {
         maxWidth: 250,
         autoClose: false,
         closeOnClick: false,
-        className: `${selected_option}-popup`,
+        className: `running-popup`,
       })
     )
-    .setPopupContent(popup_content)
+    .setPopupContent(`workout`)
     .openPopup();
-
-  // Adding a list of workouts
-  console.log(selected_option);
-
-  const html_Distint = function (option) {
-    if (option === 'running') {
-      return ['🏃‍♂️', 'undef1', 'min/km', '🦶🏼', inputCadence.value, 'spm'];
-    } else {
-      return ['🚴‍♀️', 'undef2', 'km/h', '⛰️', inputElevation.value, 'm'];
-    }
-  };
-  const html = `<li class="workout workout--${selected_option}" data-id="1234567890">
-          <h2 class="workout__title">${popup_content}</h2>
-          <div class="workout__details">
-            <span class="workout__icon">${
-              html_Distint(selected_option)[0]
-            }</span>
-            <span class="workout__value">${inputDistance.value}</span>
-            <span class="workout__unit">km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⏱</span>
-            <span class="workout__value">${inputDuration.value}</span>
-            <span class="workout__unit">min</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">${
-              html_Distint(selected_option)[1]
-            }</span>
-            <span class="workout__unit">${
-              html_Distint(selected_option)[2]
-            }</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">${
-              html_Distint(selected_option)[3]
-            }</span>
-            <span class="workout__value">${
-              html_Distint(selected_option)[4]
-            }</span>
-            <span class="workout__unit">${
-              html_Distint(selected_option)[5]
-            }</span>
-          </div>
-        </li>`;
-
-  containerWorkouts.insertAdjacentHTML('beforeend', html);
-
-  // Setting all the value empty after the submit
   inputCadence.value =
     inputDistance.value =
     inputDuration.value =
     inputElevation.value =
       '';
-  form.classList.add('hidden');
+  //   form.classList.add('hidden');
 });
 
-// changing the the cycling-or-elevation
-inputType.addEventListener('change', () => {
+inputType.addEventListener('change', function (e) {
   inputElevation.closest('.form__row').classList.toggle('form__row--hidden');
   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
 });
