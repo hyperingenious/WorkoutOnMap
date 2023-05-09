@@ -12,6 +12,14 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 let map, mapEvent;
 
+class App {
+  _getPosistion() {}
+  _loadMap(position) {}
+  _showForm() {}
+  _toggleElevationField() {}
+  _newWorkour() {}
+}
+
 if (navigator.geolocation) {
   const successFunction = function (position) {
     const { latitude, longitude } = position.coords;
