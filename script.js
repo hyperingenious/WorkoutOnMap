@@ -12,6 +12,7 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 class Workout {
+  type = 'cycling';
   date = new Date();
   id = Date.now() + ''.slice(-10);
 
@@ -23,6 +24,7 @@ class Workout {
 }
 
 class Running extends Workout {
+  type = 'running';
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -55,6 +57,7 @@ console.log(run1, cycling);
 class App {
   #map;
   #mapEvent;
+  #workout = [];
 
   constructor() {
     this._getPosition();
@@ -99,6 +102,7 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
 
+    let workout;
     const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
     const allPositive = (...inputs) => inputs.every(e => e > 0);
     const { lat, lng } = this.#mapEvent.latlng;
@@ -119,8 +123,10 @@ class App {
         // !Number.isFinite(cadence)
         !validInputs(distance, duration, cadence) ||
         !allPositive(distance, duration, cadence)
-      )
+      ) {
         return alert('Inputs have to be positive numbers');
+      }
+      workout = new Running([lat, lng], distance, duration, cadence);
     }
 
     // If activity cycling, create cycling object
@@ -134,24 +140,15 @@ class App {
       ) {
         return alert('Inputs have to be positive numbers');
       }
+      workout = new Cycling([lat, lng], distance, duration, elevation);
     }
+    this.#workout.push(workout);
+    console.log(workout);
 
     // Add new object to workotu array
 
     // Render workout on map as marker
-    L.marker([lat, lng])
-      .addTo(this.#map)
-      .bindPopup(
-        L.popup({
-          maxHeight: 100,
-          maxWidth: 250,
-          autoClose: false,
-          closeOnClick: false,
-          className: `running-popup`,
-        })
-      )
-      .setPopupContent(`workout`)
-      .openPopup();
+    this._renderWorkoutMarker(workout);
 
     // Render workout on list
 
@@ -165,6 +162,21 @@ class App {
         '';
 
     form.classList.add('hidden');
+  }
+  _renderWorkoutMarker(workout) {
+    L.marker(workout.coords)
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxHeight: 100,
+          maxWidth: 250,
+          autoClose: false,
+          closeOnClick: false,
+          className: `${workout.type}-popup`,
+        })
+      )
+      .setPopupContent(`Distance`)
+      .openPopup();
   }
 }
 const app = new App();
