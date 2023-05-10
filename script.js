@@ -145,7 +145,7 @@ class App {
     this.#workout.push(workout);
     console.log(workout);
 
-    // Add new object to workotu array
+    // Add new object to workout array
 
     // Render workout on map as marker
     this._renderWorkoutMarker(workout);
