@@ -9,7 +9,7 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 class Workout {
-  type = 'cycling';
+  type;
   date = new Date();
   id = Date.now() + ''.slice(-10);
 
@@ -46,6 +46,7 @@ class Running extends Workout {
 }
 
 class Cycling extends Workout {
+  type = 'cycling';
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
@@ -121,13 +122,14 @@ class App {
 
   _newWorkout(e) {
     e.preventDefault();
-
     let workout;
+
     const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
     const allPositive = (...inputs) => inputs.every(e => e > 0);
+
     const { lat, lng } = this.#mapEvent.latlng;
 
-    // Get data from form
+    // Get common data from form
     const type = inputType.value;
     const distance = +inputDistance.value;
     const duration = +inputDuration.value;
@@ -169,6 +171,7 @@ class App {
     // Render workout on list
     this._renderWorkout(workout);
 
+    // Hiding the form
     this._hideform();
   }
   _renderWorkout(workout) {
