@@ -70,12 +70,10 @@ class App {
   #mapZoomLevel = 13;
   #mapEvent;
   #workout = [];
+  #data;
 
   constructor() {
-    if (localStorage.getItem('storeWorkouts') == null) {
-      localStorage.setItem('storeWorkouts', '');
-      console.log('JaiHo kam hogya');
-    }
+    this._getLocalStorage();
     this._getPosition();
     inputType.addEventListener('change', this._toggleElevationField);
     form.addEventListener('submit', this._newWorkout.bind(this));
@@ -100,6 +98,9 @@ class App {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
+
+    // Setting the storage markers
+    this._getMarker(this.#data);
 
     // Handling clicks on map
     this.#map.on('click', this._showForm.bind(this));
@@ -196,7 +197,11 @@ class App {
 
     // Hiding the form
     this._hideform();
+
+    // Set all the items to the local storage
+    this._setLocalStorage();
   }
+
   _renderWorkout(workout) {
     let html = `
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
@@ -242,6 +247,7 @@ class App {
     }
     form.insertAdjacentHTML('afterend', html);
   }
+
   _renderWorkoutMarker(workout) {
     L.marker(workout.coords)
       .addTo(this.#map)
@@ -256,6 +262,18 @@ class App {
       )
       .setPopupContent(`${workout.description}`)
       .openPopup();
+  }
+
+  _setLocalStorage() {
+    localStorage.setItem('workouts', JSON.stringify(this.#workout));
+  }
+  _getLocalStorage() {
+    this.#data = JSON.parse(localStorage.getItem('workouts'));
+    if (!this.#data) return;
+    this.#data.forEach(work => this._renderWorkout(work));
+  }
+  _getMarker(data) {
+    data.forEach(work => this._renderWorkoutMarker(work));
   }
 }
 const app = new App();
