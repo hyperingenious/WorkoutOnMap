@@ -72,6 +72,10 @@ class App {
   #workout = [];
 
   constructor() {
+    if (!localStorage.getItem('storeWorkouts')) {
+      localStorage.setItem('storeWorkouts', '');
+      console.log('JaiHo kam hogya');
+    }
     this._getPosition();
     inputType.addEventListener('change', this._toggleElevationField);
     form.addEventListener('submit', this._newWorkout.bind(this));
