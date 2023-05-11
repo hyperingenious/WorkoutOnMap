@@ -72,7 +72,7 @@ class App {
   #workout = [];
 
   constructor() {
-    if (localStorage.getItem('storeWorkouts')) {
+    if (localStorage.getItem('storeWorkouts') == null) {
       localStorage.setItem('storeWorkouts', '');
       console.log('JaiHo kam hogya');
     }
