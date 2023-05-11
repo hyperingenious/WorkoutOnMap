@@ -1,13 +1,5 @@
 'use strict';
 
-const form = document.querySelector('.form');
-const containerWorkouts = document.querySelector('.workouts');
-const inputType = document.querySelector('.form__input--type');
-const inputDistance = document.querySelector('.form__input--distance');
-const inputDuration = document.querySelector('.form__input--duration');
-const inputCadence = document.querySelector('.form__input--cadence');
-const inputElevation = document.querySelector('.form__input--elevation');
-
 class Workout {
   type;
   date = new Date();
@@ -65,8 +57,17 @@ console.log(run1, cycling);
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // APLLICATION ARCHITECTURE
+const form = document.querySelector('.form');
+const containerWorkouts = document.querySelector('.workouts');
+const inputType = document.querySelector('.form__input--type');
+const inputDistance = document.querySelector('.form__input--distance');
+const inputDuration = document.querySelector('.form__input--duration');
+const inputCadence = document.querySelector('.form__input--cadence');
+const inputElevation = document.querySelector('.form__input--elevation');
+
 class App {
   #map;
+  #mapZoomLevel = 13;
   #mapEvent;
   #workout = [];
 
@@ -74,6 +75,8 @@ class App {
     this._getPosition();
     inputType.addEventListener('change', this._toggleElevationField);
     form.addEventListener('submit', this._newWorkout.bind(this));
+
+    containerWorkouts.addEventListener('click', this._moveMap.bind(this));
   }
 
   _getPosition() {
@@ -111,8 +114,25 @@ class App {
       inputDuration.value =
       inputElevation.value =
         '';
-
+    form.style.display = 'none';
     form.classList.add('hidden');
+    setTimeout(() => ((form.style.display = 'grid'), 1000));
+  }
+  _moveMap(e) {
+    const workoutEl = e.target.closest('.workout');
+
+    if (!workoutEl) {
+      return;
+    }
+
+    const workout = this.#workout.find(
+      obj => obj.id === workoutEl.dataset.id
+    ).coords; // getting the coords of current object
+
+    this.#map.setView(workout, this.#mapZoomLevel, {
+      animate: true,
+      pan: { duration: 1 },
+    }); // ([lat, lng], zoomValue , {options})
   }
 
   _toggleElevationField() {
