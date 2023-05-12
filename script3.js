@@ -283,21 +283,21 @@ class App {
     form.insertAdjacentHTML('afterend', html);
   }
 
-  // _renderWorkoutMarker(workout) {
-  //   L.marker(workout.coords)
-  //     .addTo(this.#map)
-  //     .bindPopup(
-  //       L.popup({
-  //         maxHeight: 100,
-  //         maxWidth: 250,
-  //         autoClose: false,
-  //         closeOnClick: false,
-  //         className: `${workout.type}-popup`,
-  //       })
-  //     )
-  //     .setPopupContent(`${workout.description}`)
-  //     .openPopup();
-  // }
+  _renderWorkoutMarker(workout) {
+    L.marker(workout.coords)
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxHeight: 100,
+          maxWidth: 250,
+          autoClose: false,
+          closeOnClick: false,
+          className: `${workout.type}-popup`,
+        })
+      )
+      .setPopupContent(`${workout.description}`)
+      .openPopup();
+  }
 
   _setLocalStorage() {
     localStorage.setItem('workouts', JSON.stringify(this.#workout));
