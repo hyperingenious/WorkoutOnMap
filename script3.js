@@ -51,9 +51,6 @@ class Cycling extends Workout {
     return this.speed;
   }
 }
-const run1 = new Running([23, -12], 5.2, 24, 178);
-const cycling = new Cycling([23, -12], 527, 4, 78);
-console.log(run1, cycling);
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 // APLLICATION ARCHITECTURE
@@ -269,6 +266,8 @@ class App {
   }
   _getLocalStorage() {
     this.#data = JSON.parse(localStorage.getItem('workouts'));
+    this.#workout = this.#data; // cuz #workout is empty & _moveMap don't work onload
+
     if (!this.#data) return;
     this.#data.forEach(work => this._renderWorkout(work));
   }
