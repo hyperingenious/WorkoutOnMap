@@ -200,7 +200,7 @@ class App {
     });
 
     // Hiding the form
-    // this._hideform();
+    this._hideform();
 
     // Set all the items to the local storage
     this._setLocalStorage();
