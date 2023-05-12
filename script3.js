@@ -184,6 +184,7 @@ class App {
     }
 
     // Add new object to workout array
+    console.log(workout);
     this.#workout.push(workout);
 
     // Render workout on map as marker
@@ -191,6 +192,12 @@ class App {
 
     // Render workout on list
     this._renderWorkout(workout);
+
+    // adding the delete event Listner
+    document.querySelector('.delete').addEventListener('click', function (e) {
+      const workout = e.target.closest('.workout').dataset.id;
+      console.log(workout);
+    });
 
     // Hiding the form
     this._hideform();
@@ -297,12 +304,14 @@ class App {
   }
   _getLocalStorage() {
     this.#data = JSON.parse(localStorage.getItem('workouts'));
-    this.#workout = this.#data; // cuz #workout is empty & _moveMap don't work onload
 
     if (!this.#data) return;
+
+    this.#workout = this.#data; // cuz #workout is empty & _moveMap don't work onload
     this.#data.forEach(work => this._renderWorkout(work));
   }
   _getMarker(data) {
+    if (!data) return;
     data.forEach(work => this._renderWorkoutMarker(work));
   }
 }
