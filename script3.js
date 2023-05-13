@@ -63,7 +63,6 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 class App {
-  #theUltimate = [];
   #map;
   #mapZoomLevel = 13;
   #mapEvent;
@@ -195,25 +194,9 @@ class App {
     this._renderWorkout(workout);
 
     // adding the delete event Listner
-    document.querySelector('.delete').addEventListener('click', function (e) {
-      const workout = e.target.closest('.workout');
-      // removing from the list
-      workout.remove();
-
-      // getting from local storage
-      const data = JSON.parse(localStorage.getItem('workouts'));
-      const item = data.findIndex(item => item.id === workout.dataset.id);
-
-      // remove from map
-      const markerCoords = data.find(
-        coords => coords.id === workout.dataset.id
-      ).coords;
-      L.marker(markerCoords).addTo(this.#map).removeFrom(this.#map);
-
-      // removing from local storage
-      data.splice(item, 1);
-      localStorage.setItem('workouts', JSON.stringify(data));
-    });
+    document
+      .querySelector('.delete')
+      .addEventListener('click', this._deleteWorkout.bind(this));
 
     // Hiding the form
     this._hideform();
@@ -291,6 +274,23 @@ class App {
       )
       .setPopupContent(`${workout.description}`)
       .openPopup();
+  }
+
+  _deleteWorkout(e) {
+    const workout = e.target.closest('.workout');
+    // removing from the list
+    workout.remove();
+
+    // getting from local storage
+    const data = JSON.parse(localStorage.getItem('workouts'));
+    const item = data.findIndex(item => item.id === workout.dataset.id);
+
+    // remove from map
+    const markerCoords = data.find(coords => coords.id === workout.dataset.id);
+
+    // removing from local storage
+    data.splice(item, 1);
+    localStorage.setItem('workouts', JSON.stringify(data));
   }
 
   _setLocalStorage() {
