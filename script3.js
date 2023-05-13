@@ -63,6 +63,7 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 class App {
+  #theUltimate = [];
   #map;
   #mapZoomLevel = 13;
   #mapEvent;
@@ -199,16 +200,17 @@ class App {
       // removing from the list
       workout.remove();
 
-      // removing from the localStorage
+      // getting from local storage
       const data = JSON.parse(localStorage.getItem('workouts'));
       const item = data.findIndex(item => item.id === workout.dataset.id);
 
       // remove from map
       const markerCoords = data.find(
         coords => coords.id === workout.dataset.id
-      ).id;
-      L.removeFrom();
+      ).coords;
+      L.marker(markerCoords).addTo(this.#map).removeFrom(this.#map);
 
+      // removing from local storage
       data.splice(item, 1);
       localStorage.setItem('workouts', JSON.stringify(data));
     });
