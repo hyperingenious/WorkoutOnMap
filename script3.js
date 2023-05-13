@@ -63,6 +63,7 @@ const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
 
 class App {
+  // [rivate properties  | private fields
   #map;
   #mapZoomLevel = 13;
   #mapEvent;
@@ -73,6 +74,13 @@ class App {
     this._getLocalStorage();
     this._getPosition();
     inputType.addEventListener('change', this._toggleElevationField);
+
+    /*
+    The solution of this error is to use bind method to set the this keyword
+
+    script3.js:155 Uncaught TypeError: Cannot read private member #mapEvent from an object whose class did not declare it
+    at HTMLFormElement._newWorkout (script3.js:155:31)
+    */
     form.addEventListener('submit', this._newWorkout.bind(this));
     containerWorkouts.addEventListener('click', this._moveMap.bind(this));
   }
@@ -86,6 +94,7 @@ class App {
   }
 
   _loadMap(position) {
+    // destructuring object
     const { latitude, longitude } = position.coords;
     const coords = [latitude, longitude];
 
@@ -145,6 +154,7 @@ class App {
     e.preventDefault();
     let workout;
 
+    // helper functions
     const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
     const allPositive = (...inputs) => inputs.every(e => e > 0);
 
@@ -166,6 +176,7 @@ class App {
       ) {
         return alert('Inputs have to be positive numbers');
       }
+      // calling class inside a class
       workout = new Running([lat, lng], distance, duration, cadence);
     }
 
@@ -180,6 +191,7 @@ class App {
       ) {
         return alert('Inputs have to be positive numbers');
       }
+      // calling class inside a class
       workout = new Cycling([lat, lng], distance, duration, elevation);
     }
 
@@ -293,6 +305,7 @@ class App {
     localStorage.setItem('workouts', JSON.stringify(data));
   }
 
+  // local storage
   _setLocalStorage() {
     localStorage.setItem('workouts', JSON.stringify(this.#workout));
   }
