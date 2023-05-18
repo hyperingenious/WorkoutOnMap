@@ -27,11 +27,13 @@ body {
   line-height: 1.6;
   height: 100vh;
   overscroll-behavior-y: none;
-
+  display: flex;
+  flex-wrap: wrap;
   background-color: #fff;
   padding: 2.5rem;
-
   display: flex;
+  flex-direction: row;
+  align-content: space-around;
 }
 
 /* GENERAL */
@@ -215,6 +217,57 @@ svg {
   flex: 1;
   height: 100%;
   background-color: var(--color-light--1);
+}
+
+@media (min-width: 350px) and (max-width: 412px) {
+  .form {
+    background-color: var(--color-dark--2);
+    border-radius: 5px;
+    /* padding: 0px 0px; */
+    margin-bottom: 0;
+    display: flex;
+    grid-template-columns: 1fr 1fr;
+    width: 27rem;
+    /* gap: 0.5rem 2.5rem; */
+    height: 19.6rem;
+    transition: all 0.5s, transform 1ms;
+    align-items: stretch;
+    justify-content: center;
+    flex-direction: column;
+  }
+  .form__input {
+    width: 11rem;
+    height: 4rem;
+    padding: 0.3rem 1.1rem;
+    font-family: inherit;
+    font-size: 1.7rem;
+    border: none;
+    border-radius: 3px;
+    background-color: var(--color-light--3);
+    font-weight: 800;
+    transition: all 0.2s;
+  }
+  .form__label {
+    flex: 0 0 50%;
+    font-size: 1.7rem;
+    font-weight: 800;
+  }
+  .sidebar {
+    flex-basis: 0rem;
+    background-color: var(--color-dark--1);
+    padding: 3rem 5rem 4rem 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+  }
+
+  .workouts {
+    list-style: none;
+    height: 44vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
 }
 
 /* Popup width is defined in JS using options */
