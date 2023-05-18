@@ -98,7 +98,7 @@ svg {
 }
 .main__div {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
 }
 .workout--running {
   border-left: 5px solid var(--color-brand--2);
@@ -220,6 +220,38 @@ svg {
 }
 
 @media (min-width: 350px) and (max-width: 412px) {
+  body {
+    font-family: 'Manrope', sans-serif;
+    color: var(--color-light--2);
+    font-weight: 400;
+    line-height: 1.6;
+    height: 100vh;
+    overscroll-behavior-y: none;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #fff;
+    padding: 25px;
+    display: flex;
+    flex-direction: row;
+    align-content: flex-end;
+  }
+
+  .workout__title {
+    font-size: 14px;
+    font-weight: 600;
+    grid-column: 1 / -1;
+  }
+  .workout__icon {
+    font-size: 15px;
+    margin-right: 3px;
+  }
+
+  .workout__value {
+    font-size: 13px;
+  }
+  .workout__unit {
+    font-size: 9px;
+  }
   .form {
     background-color: var(--color-dark--2);
     border-radius: 5px;
@@ -233,6 +265,18 @@ svg {
     transition: all 0.5s, transform 1ms;
     align-items: stretch;
     justify-content: center;
+    flex-direction: column;
+  }
+  .workout {
+    background-color: var(--color-dark--2);
+    border-radius: 5px;
+    padding: 12px 4px;
+    /* margin-bottom: 1.75rem; */
+    width: 34rem;
+    cursor: pointer;
+    display: flex;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    /* gap: 0.75rem 1.5rem; */
     flex-direction: column;
   }
   .form__input {
@@ -255,7 +299,7 @@ svg {
   .sidebar {
     flex-basis: 0rem;
     background-color: var(--color-dark--1);
-    padding: 3rem 5rem 4rem 5rem;
+    padding: 10px 22px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -265,8 +309,11 @@ svg {
   .workouts {
     list-style: none;
     height: 44vh;
+    display: flex;
     overflow-y: scroll;
     overflow-x: hidden;
+    flex-direction: column;
+    align-items: center;
   }
 }
 
