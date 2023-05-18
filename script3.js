@@ -118,6 +118,7 @@ class App {
     inputDistance.focus();
   }
   _hideform() {
+    console.log('closeme');
     // Clear input fields
     inputCadence.value =
       inputDistance.value =
@@ -126,7 +127,7 @@ class App {
         '';
     form.style.display = 'none';
     form.classList.add('hidden');
-    setTimeout(() => ((form.style.display = 'grid'), 1000));
+    // setTimeout(() => ((form.style.display = 'grid'), 1000));
   }
   _moveMap(e) {
     const workoutEl = e.target.closest('.workout');
@@ -206,9 +207,9 @@ class App {
     this._renderWorkout(workout);
 
     // adding the delete event Listner
-    document
-      .querySelector('.delete')
-      .addEventListener('click', this._deleteWorkout.bind(this));
+    // document
+    //   .querySelector('.delete')
+    //   .addEventListener('click', this._deleteWorkout.bind(this));
 
     // Hiding the form
     this._hideform();
@@ -222,10 +223,7 @@ class App {
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
     <div class="top__elements">
           <h2 class="workout__title">${workout.description.substring(4)}</h2>
-          <div class="all_svg">
-             <svg xmlns="http://www.w3.org/2000/svg" class="edit" width="22" height="22" fill="#aaa" viewBox="0 0 256 256"><path d="M230.14,70.54,185.46,25.85a20,20,0,0,0-28.29,0L33.86,149.17A19.85,19.85,0,0,0,28,163.31V208a20,20,0,0,0,20,20H92.69a19.86,19.86,0,0,0,14.14-5.86L230.14,98.82a20,20,0,0,0,0-28.28ZM91,204H52V165l84-84,39,39ZM192,103,153,64l18.34-18.34,39,39Z"></path></svg>
-              <svg xmlns="http://www.w3.org/2000/svg" class="delete" width="22" height="22" fill="#aaa" viewBox="0 0 256 256"><path d="M216,48H180V36A28,28,0,0,0,152,8H104A28,28,0,0,0,76,36V48H40a12,12,0,0,0,0,24h4V208a20,20,0,0,0,20,20H192a20,20,0,0,0,20-20V72h4a12,12,0,0,0,0-24ZM100,36a4,4,0,0,1,4-4h48a4,4,0,0,1,4,4V48H100Zm88,168H68V72H188ZM116,104v64a12,12,0,0,1-24,0V104a12,12,0,0,1,24,0Zm48,0v64a12,12,0,0,1-24,0V104a12,12,0,0,1,24,0Z"></path></svg>
-            </div>
+          
           </div>
           <div class="main__div">
           <div class="workout__details">
@@ -288,22 +286,22 @@ class App {
       .openPopup();
   }
 
-  _deleteWorkout(e) {
-    const workout = e.target.closest('.workout');
-    // removing from the list
-    workout.remove();
+  // _deleteWorkout(e) {
+  //   const workout = e.target.closest('.workout');
+  //   // removing from the list
+  //   workout.remove();
 
-    // getting from local storage
-    const data = JSON.parse(localStorage.getItem('workouts'));
-    const item = data.findIndex(item => item.id === workout.dataset.id);
+  //   // getting from local storage
+  //   const data = JSON.parse(localStorage.getItem('workouts'));
+  //   const item = data.findIndex(item => item.id === workout.dataset.id);
 
-    // remove from map
-    const markerCoords = data.find(coords => coords.id === workout.dataset.id);
+  //   // remove from map
+  //   const markerCoords = data.find(coords => coords.id === workout.dataset.id);
 
-    // removing from local storage
-    data.splice(item, 1);
-    localStorage.setItem('workouts', JSON.stringify(data));
-  }
+  //   // removing from local storage
+  //   data.splice(item, 1);
+  //   localStorage.setItem('workouts', JSON.stringify(data));
+  // }
 
   // local storage
   _setLocalStorage() {
