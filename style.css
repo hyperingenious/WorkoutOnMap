@@ -265,7 +265,7 @@ svg {
     background-color: var(--color-dark--2);
     border-radius: 11px;
     /* padding: 0px 0px; */
-    margin-bottom: 18px;
+    margin: 12px;
     display: flex;
     grid-template-columns: 1fr 1fr;
     width: 34rem;
@@ -283,6 +283,7 @@ svg {
     /* margin-bottom: 1.75rem; */
     width: 34rem;
     cursor: pointer;
+    margin: 10px;
     display: flex;
     grid-template-columns: 1fr 1fr 1fr 1fr;
     /* gap: 0.75rem 1.5rem; */
@@ -309,7 +310,7 @@ svg {
   .sidebar {
     flex-basis: 0rem;
     background-color: var(--color-dark--1);
-    padding: 10px 22px;
+    padding: 10px 0px;
     display: flex;
     height: 06%;
     flex-direction: column;
