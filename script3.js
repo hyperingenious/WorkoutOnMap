@@ -1,4 +1,4 @@
-'use strict';
+('use strict');
 
 class Workout {
   type;
@@ -119,7 +119,8 @@ class App {
     form.classList.remove('hidden');
     inputDistance.focus();
     if (screen.width <= 412) {
-      sidebar.style.height = '60%';
+      // sidebar.style.height = '70%';
+      sidebar.style.flex = 2;
     }
   }
   _hideform() {
@@ -161,7 +162,7 @@ class App {
     let workout;
 
     // Making the height of sidebar normal
-    sidebar.style.height = '39%';
+    sidebar.style.flex = 0;
 
     // helper functions
     const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
