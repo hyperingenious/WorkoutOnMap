@@ -114,6 +114,7 @@ class App {
 
   _showForm(mapE) {
     this.#mapEvent = mapE;
+    form.style.display = 'block';
     form.classList.remove('hidden');
     inputDistance.focus();
   }
@@ -219,6 +220,7 @@ class App {
   }
 
   _renderWorkout(workout) {
+    console.log('I am workout');
     let html = `
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
     <div class="top__elements">

@@ -221,6 +221,7 @@ svg {
 
 @media (min-width: 350px) and (max-width: 412px) {
   body {
+    overscroll-behavior-y: none;
     display: flex;
     flex-direction: column;
     font-family: 'Manrope', sans-serif;
