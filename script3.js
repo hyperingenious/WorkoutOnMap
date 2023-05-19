@@ -50,6 +50,7 @@ class Cycling extends Workout {
 const form = document.querySelector('.form');
 const containerWorkouts = document.querySelector('.workouts');
 const inputType = document.querySelector('.form__input--type');
+const workoutList = document.querySelector('.workoutList');
 // const inputDistance = document.querySelector('.form__input--distance');
 // const inputDuration = document.querySelector('.form__input--duration');
 // const inputCadence = document.querySelector('.form__input--cadence');
@@ -109,7 +110,6 @@ class App {
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
 
-    console.log(L.Routing);
     // marking the curretn location
     L.marker(this.#currentCoords)
       .addTo(this.#map)
@@ -144,11 +144,10 @@ class App {
     form.classList.remove('hidden');
     inputType.focus();
     if (screen.width <= 412) {
-      sidebar.style.height = '30%';
+      sidebar.style.height = '35%';
     }
   }
   _hideform() {
-    form.style.display = 'none';
     form.classList.add('hidden');
     // setTimeout(() => ((form.style.display = 'grid'), 1000));
   }
@@ -184,7 +183,7 @@ class App {
     let workout;
 
     // Making the height of sidebar normal
-    sidebar.style.height = '30%';
+    sidebar.style.height = '35%';
 
     const { lat, lng } = this.#mapEvent.latlng;
 
@@ -254,7 +253,7 @@ class App {
           </div>
         </li>`;
     }
-    form.insertAdjacentHTML('afterend', html);
+    workoutList.insertAdjacentHTML('beforeend', html);
   }
 
   _renderWorkoutMarker(workout) {
