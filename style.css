@@ -300,7 +300,7 @@ svg {
     background-color: var(--color-dark--1);
     padding: 10px 22px;
     display: flex;
-    height: 39%;
+    height: 30%;
     flex-direction: column;
     justify-content: center;
     align-content: center;
