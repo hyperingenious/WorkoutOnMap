@@ -61,6 +61,7 @@ const inputDistance = document.querySelector('.form__input--distance');
 const inputDuration = document.querySelector('.form__input--duration');
 const inputCadence = document.querySelector('.form__input--cadence');
 const inputElevation = document.querySelector('.form__input--elevation');
+const sidebar = document.querySelector('.sidebar');
 
 class App {
   // [rivate properties  | private fields
@@ -117,6 +118,9 @@ class App {
     form.style.display = 'block';
     form.classList.remove('hidden');
     inputDistance.focus();
+    if (screen.width <= 412) {
+      sidebar.style.height = '60%';
+    }
   }
   _hideform() {
     console.log('closeme');
@@ -155,6 +159,9 @@ class App {
   _newWorkout(e) {
     e.preventDefault();
     let workout;
+
+    // Making the height of sidebar normal
+    sidebar.style.height = '39%';
 
     // helper functions
     const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
