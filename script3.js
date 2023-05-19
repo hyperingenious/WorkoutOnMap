@@ -119,8 +119,7 @@ class App {
     form.classList.remove('hidden');
     inputDistance.focus();
     if (screen.width <= 412) {
-      // sidebar.style.height = '70%';
-      sidebar.style.flex = 2;
+      sidebar.style.height = '50%';
     }
   }
   _hideform() {
@@ -162,7 +161,7 @@ class App {
     let workout;
 
     // Making the height of sidebar normal
-    sidebar.style.flex = 0;
+    sidebar.style.height = '30%';
 
     // helper functions
     const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
