@@ -260,7 +260,7 @@ svg {
     width: 34rem;
     /* gap: 0.5rem 2.5rem; */
     height: 19.6rem;
-    transition: all 0.5s, transform 1ms;
+    transition: all 0.3s, transform 1ms;
     align-items: stretch;
     justify-content: center;
     flex-direction: column;
@@ -288,7 +288,7 @@ svg {
     border-radius: 11px;
     background-color: var(--color-light--3);
     font-weight: 800;
-    transition: all 0.2s;
+    transition: 0.2s;
   }
   .form__label {
     flex: 0 0 50%;
@@ -304,11 +304,12 @@ svg {
     flex-direction: column;
     justify-content: center;
     align-content: center;
+    transition: 0.3s ease-in;
   }
 
   .workouts {
     list-style: none;
-    height: 44vh;
+    height: 89vh;
     display: flex;
     overflow-y: scroll;
     overflow-x: hidden;
