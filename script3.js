@@ -5,10 +5,9 @@ class Workout {
   date = new Date();
   id = Date.now() + ''.slice(-10);
 
-  constructor(coords, distance, duration) {
+  constructor(coords, distance) {
     this.coords = coords; // [lat, lng]
     this.distance = distance; // in km
-    this.duration = duration; // in min
   }
 
   _setDescription() {
@@ -22,10 +21,8 @@ class Workout {
 
 class Running extends Workout {
   type = 'running';
-  constructor(coords, distance, duration, cadence) {
-    super(coords, distance, duration);
-    // this.cadence = cadence;
-    // this.calcPace();
+  constructor(coords, distance) {
+    super(coords, distance);
     this._setDescription();
   }
   calcPace() {
@@ -36,11 +33,10 @@ class Running extends Workout {
 
 class Cycling extends Workout {
   type = 'cycling';
-  constructor(coords, distance, duration, elevationGain) {
-    super(coords, distance, duration);
+  constructor(coords, distance, elevationGain) {
+    super(coords, distance);
     // this.elevationGain = elevationGain;
-    // this.calcSpeed();
-    // this._setDescription();
+    this._setDescription();
   }
   calcSpeed() {
     //km/h
@@ -67,11 +63,17 @@ class App {
   #mapEvent;
   #workout = [];
   #data;
+  #currentCoords;
 
   constructor() {
     // this._getLocalStorage();
     this._getPosition();
     // inputType.addEventListener('change', this._toggleElevationField);
+
+    navigator.geolocation.getCurrentPosition(
+      this._getCurrentLocation.bind(this),
+      e => console.error(e.message)
+    );
 
     /*
     The solution of this error is to use bind method to set the this keyword
@@ -81,6 +83,10 @@ class App {
     */
     form.addEventListener('submit', this._newWorkout.bind(this));
     containerWorkouts.addEventListener('click', this._moveMap.bind(this));
+  }
+  _getCurrentLocation(e) {
+    const { latitude: lat, longitude: lng } = e.coords;
+    this.#currentCoords = { lat, lng };
   }
 
   _getPosition() {
@@ -102,6 +108,21 @@ class App {
       attribution:
         '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
     }).addTo(this.#map);
+
+    console.log(L.Routing);
+    // marking the curretn location
+    L.marker(this.#currentCoords)
+      .addTo(this.#map)
+      .bindPopup(
+        L.popup({
+          maxHeight: 100,
+          maxWidth: 200,
+          autoClose: false,
+          closeOnClick: false,
+        })
+      )
+      .setPopupContent('Live')
+      .openPopup();
 
     // Setting the storage markers
     this._getMarker(this.#data);
@@ -127,7 +148,6 @@ class App {
     }
   }
   _hideform() {
-    console.log('closeme');
     form.style.display = 'none';
     form.classList.add('hidden');
     // setTimeout(() => ((form.style.display = 'grid'), 1000));
@@ -142,6 +162,11 @@ class App {
     const workout = this.#workout.find(
       obj => obj.id === workoutEl.dataset.id
     ).coords; // getting the coords of current object
+
+    const polyline = L.polyline([
+      this.#currentCoords,
+      { lat: workout[0], lng: workout[1] },
+    ]).addTo(this.#map);
 
     this.#map.setView(workout, this.#mapZoomLevel, {
       animate: true,
@@ -161,25 +186,24 @@ class App {
     // Making the height of sidebar normal
     sidebar.style.height = '30%';
 
-    // helper functions
-    const validInputs = (...inputs) => inputs.every(e => Number.isFinite(e));
-    const allPositive = (...inputs) => inputs.every(e => e > 0);
-
     const { lat, lng } = this.#mapEvent.latlng;
 
     // Get common data from form
     const type = inputType.value;
 
+    //prettier-ignore
+    const distance =Math.trunc(this.#map.distance(this.#currentCoords, { lat, lng }) / 1000,2);
+
     // If activity running, create running object
     if (type === 'running') {
       // calling class inside a class
-      workout = new Running([lat, lng]); //, distance, duration, cadence
+      workout = new Running([lat, lng], distance); //, distance, duration, cadence
     }
 
     // If activity cycling, create cycling object
     if (type === 'cycling') {
       // calling class inside a class
-      workout = new Cycling([lat, lng]); //, distance, duration, elevation
+      workout = new Cycling([lat, lng], distance); //, distance, duration, elevation
     }
 
     // Add new object to workout array
@@ -205,17 +229,7 @@ class App {
   }
 
   _renderWorkout(workout) {
-    const backchod = function (e) {
-      {
-        const { latitude: lat, longitude: lng } = e.coords;
-        const currentLatLng = { lat, lng };
-        const currentMarkerCoords = this.#map._popup._latlng;
-        const distance = Math.trunc(
-          this.#map.distance(currentLatLng, currentMarkerCoords) / 1000,
-          2
-        );
-
-        let html = `
+    let html = `
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
     <div class="top__elements">
           <h2 class="workout__title">${workout.description.substring(4)}</h2>
@@ -226,35 +240,12 @@ class App {
             <span class="workout__icon">${
               workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
             }</span>
-            <span class="workout__value">${distance}</span>
+            <span class="workout__value">${workout.distance}</span>
             <span class="workout__unit">km</span>
           </div>
-          <div class="workout__details">
-            <span class="workout__icon">⏱</span>
-            <span class="workout__value">    </span>
-            <span class="workout__unit">min</span>
-          </div>
 `;
-        if (workout.type === 'running') {
-          html += `<div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">  </span>
-            <span class="workout__unit">min/km</span>
-          </div>
-          <div class="workout__details">
-            <span class="workout__icon">🦶🏼</span>
-            <span class="workout__value">   </span>
-            <span class="workout__unit">spm</span>
-          </div>
-          </div>
-        </li>`;
-        }
-        if (workout.type === 'cycling') {
-          html += `<div class="workout__details">
-            <span class="workout__icon">⚡️</span>
-            <span class="workout__value">    </span>
-            <span class="workout__unit">km/h</span>
-          </div>
+    if (workout.type === 'cycling') {
+      html += `
           <div class="workout__details">
             <span class="workout__icon">⛰</span>
             <span class="workout__value">    </span>
@@ -262,13 +253,8 @@ class App {
           </div>
           </div>
         </li>`;
-        }
-        form.insertAdjacentHTML('afterend', html);
-      }
-    };
-    navigator.geolocation.getCurrentPosition(backchod.bind(this), e =>
-      console.error(e.message)
-    );
+    }
+    form.insertAdjacentHTML('afterend', html);
   }
 
   _renderWorkoutMarker(workout) {
