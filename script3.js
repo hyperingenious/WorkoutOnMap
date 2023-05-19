@@ -109,21 +109,21 @@ class App {
     // Handling clicks on map
     this.#map.on('click', this._showForm.bind(this));
   }
-  _cancel(e) {
-    if (e.target == sidebar) {
-      this._hideform();
-    }
-  }
+  // _cancel(e) {
+  //   if (e.target == sidebar) {
+  //     this._hideform();
+  //   }
+  // }
 
   _showForm(mapE) {
-    sidebar.addEventListener('click', this._cancel.bind(this));
+    // sidebar.addEventListener('click', this._cancel.bind(this));
 
     this.#mapEvent = mapE;
     form.style.display = 'block';
     form.classList.remove('hidden');
     inputType.focus();
     if (screen.width <= 412) {
-      sidebar.style.height = '50%';
+      sidebar.style.height = '30%';
     }
   }
   _hideform() {
