@@ -57,6 +57,7 @@ const workoutList = document.querySelector('.workoutList');
 // const inputElevation = document.querySelector('.form__input--elevation');
 const sidebar = document.querySelector('.sidebar');
 const full_arrow = document.querySelector('.full_arrow');
+const popup_message = document.querySelector('.popup_message');
 
 class App {
   // [rivate properties  | private fields
@@ -138,12 +139,13 @@ class App {
     if (e.target.classList == 'open') {
       full_arrow.innerHTML = '';
       full_arrow.innerHTML =
-        '<svg class="close" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" viewBox="0 0 256 256"><path d="M216.49,56.48,177,96h19a12,12,0,0,1,0,24H148a12,12,0,0,1-12-12V60a12,12,0,0,1,24,0V79l39.51-39.52a12,12,0,0,1,17,17ZM108,136H60a12,12,0,0,0,0,24H79L39.51,199.51a12,12,0,0,0,17,17L96,177v19a12,12,0,0,0,24,0V148A12,12,0,0,0,108,136Z"></path></svg>';
+        '<svg class="close" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="black" viewBox="0 0 256 256"><path d="M210.83,50.83,153.66,108H192a4,4,0,0,1,0,8H144a4,4,0,0,1-4-4V64a4,4,0,0,1,8,0v38.34l57.17-57.17a4,4,0,1,1,5.66,5.66ZM112,140H64a4,4,0,0,0,0,8h38.34L45.17,205.17a4,4,0,0,0,5.66,5.66L108,153.66V192a4,4,0,0,0,8,0V144A4,4,0,0,0,112,140Z"></path></svg>';
       sidebar.style.height = '90%';
     } else {
       full_arrow.innerHTML = '';
       full_arrow.innerHTML =
-        '<svg class="open" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" viewBox="0 0 256 256"><path d="M220,48V96a12,12,0,0,1-24,0V77l-39.51,39.52a12,12,0,0,1-17-17L179,60H160a12,12,0,0,1,0-24h48A12,12,0,0,1,220,48ZM99.51,139.51,60,179V160a12,12,0,0,0-24,0v48a12,12,0,0,0,12,12H96a12,12,0,0,0,0-24H77l39.52-39.51a12,12,0,0,0-17-17Z"></path></svg>';
+        '<svg class="open" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="black" viewBox="0 0 256 256"><path d="M212,48V96a4,4,0,0,1-8,0V57.66l-57.17,57.17a4,4,0,0,1-5.66-5.66L198.34,52H160a4,4,0,0,1,0-8h48A4,4,0,0,1,212,48ZM109.17,141.17,52,198.34V160a4,4,0,0,0-8,0v48a4,4,0,0,0,4,4H96a4,4,0,0,0,0-8H57.66l57.17-57.17a4,4,0,0,0-5.66-5.66Z"></path></svg>';
+
       sidebar.style.height = '35%';
     }
   }
@@ -235,6 +237,21 @@ class App {
     // Hiding the form
     this._hideform();
 
+    //display popup-message
+    popup_message.style.transform = 'translateY(4rem)';
+    if (workout.type === 'running') {
+      popup_message.style.color = 'var(--color-brand--2)';
+    } else {
+      popup_message.style.color = 'var(--color-brand--1)';
+    }
+    popup_message.textContent = `${workout.type[0].toUpperCase()}${workout.type.slice(
+      1
+    )} popup added`;
+    setTimeout(
+      () => (popup_message.style.transform = 'translateY(-5rem)'),
+      500
+    );
+
     // Set all the items to the local storage
     // this._setLocalStorage();
   }
@@ -242,28 +259,19 @@ class App {
   _renderWorkout(workout) {
     let html = `
     <li class="workout workout--${workout.type}" data-id="${workout.id}">
-    <div class="top__elements">
-          <h2 class="workout__title">${workout.description.substring(4)}</h2>
-          
-          </div>
-          <div class="main__div">
-          <div class="workout__details">
-            <span class="workout__icon">${
-              workout.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'
-            }</span>
+    <div class="main__div">
+    <div class="workout__details">
             <span class="workout__value">${workout.distance}</span>
             <span class="workout__unit">km</span>
-          </div>
+            </div>
+            <div class="top__elements">
+                  <h2 class="workout__title">${workout.description.substring(
+                    4
+                  )}</h2>
+                  
+                  </div>
+          </li>
 `;
-    if (workout.type === 'cycling') {
-      html += `
-          <div class="workout__details">
-            <span class="workout__value">    </span>
-            <span class="workout__unit">m</span>
-          </div>
-          </div>
-        </li>`;
-    }
     workoutList.insertAdjacentHTML('beforeend', html);
   }
 
