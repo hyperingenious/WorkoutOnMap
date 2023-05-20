@@ -35,6 +35,15 @@ body {
   flex-direction: row;
   align-content: space-around;
 }
+/* full and small */
+.full_arrow {
+  position: absolute;
+  transform: translateY(-4rem);
+  transition: 0.3s;
+  top: 4px;
+  right: 9px;
+  width: 26px;
+}
 
 /* GENERAL */
 a:link,
