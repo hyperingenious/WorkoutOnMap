@@ -56,6 +56,7 @@ const workoutList = document.querySelector('.workoutList');
 // const inputCadence = document.querySelector('.form__input--cadence');
 // const inputElevation = document.querySelector('.form__input--elevation');
 const sidebar = document.querySelector('.sidebar');
+const full_arrow = document.querySelector('.full_arrow');
 
 class App {
   // [rivate properties  | private fields
@@ -67,14 +68,13 @@ class App {
   #currentCoords;
 
   constructor() {
-    // this._getLocalStorage();
-    this._getPosition();
-    // inputType.addEventListener('change', this._toggleElevationField);
-
     navigator.geolocation.getCurrentPosition(
       this._getCurrentLocation.bind(this),
       e => console.error(e.message)
     );
+    // this._getLocalStorage();
+    this._getPosition();
+    // inputType.addEventListener('change', this._toggleElevationField);
 
     /*
     The solution of this error is to use bind method to set the this keyword
@@ -84,6 +84,7 @@ class App {
     */
     form.addEventListener('submit', this._newWorkout.bind(this));
     containerWorkouts.addEventListener('click', this._moveMap.bind(this));
+    full_arrow.addEventListener('click', this._fullScreen);
   }
   _getCurrentLocation(e) {
     const { latitude: lat, longitude: lng } = e.coords;
@@ -111,18 +112,15 @@ class App {
     }).addTo(this.#map);
 
     // marking the curretn location
-    L.marker(this.#currentCoords)
-      .addTo(this.#map)
-      .bindPopup(
-        L.popup({
-          maxHeight: 100,
-          maxWidth: 200,
-          autoClose: false,
-          closeOnClick: false,
-        })
-      )
-      .setPopupContent('Live')
-      .openPopup();
+    // this._renderWorkoutMarker(
+    //   {
+    //     description: 'live',
+    //     coords: this.#currentCoords,
+    //     type: 'none',
+    //   },
+    //   100,
+    //   200
+    // );
 
     // Setting the storage markers
     this._getMarker(this.#data);
@@ -136,6 +134,19 @@ class App {
   //   }
   // }
 
+  _fullScreen(e) {
+    if (e.target.classList == 'open') {
+      full_arrow.innerHTML = '';
+      full_arrow.innerHTML =
+        '<svg class="close" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" viewBox="0 0 256 256"><path d="M216.49,56.48,177,96h19a12,12,0,0,1,0,24H148a12,12,0,0,1-12-12V60a12,12,0,0,1,24,0V79l39.51-39.52a12,12,0,0,1,17,17ZM108,136H60a12,12,0,0,0,0,24H79L39.51,199.51a12,12,0,0,0,17,17L96,177v19a12,12,0,0,0,24,0V148A12,12,0,0,0,108,136Z"></path></svg>';
+      sidebar.style.height = '90%';
+    } else {
+      full_arrow.innerHTML = '';
+      full_arrow.innerHTML =
+        '<svg class="open" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#aaa" viewBox="0 0 256 256"><path d="M220,48V96a12,12,0,0,1-24,0V77l-39.51,39.52a12,12,0,0,1-17-17L179,60H160a12,12,0,0,1,0-24h48A12,12,0,0,1,220,48ZM99.51,139.51,60,179V160a12,12,0,0,0-24,0v48a12,12,0,0,0,12,12H96a12,12,0,0,0,0-24H77l39.52-39.51a12,12,0,0,0-17-17Z"></path></svg>';
+      sidebar.style.height = '35%';
+    }
+  }
   _showForm(mapE) {
     // sidebar.addEventListener('click', this._cancel.bind(this));
 
@@ -143,6 +154,7 @@ class App {
     form.style.display = 'block';
     form.classList.remove('hidden');
     inputType.focus();
+    full_arrow.style.transform = 'translateY(0rem)';
     if (screen.width <= 412) {
       sidebar.style.height = '35%';
     }
@@ -246,7 +258,6 @@ class App {
     if (workout.type === 'cycling') {
       html += `
           <div class="workout__details">
-            <span class="workout__icon">⛰</span>
             <span class="workout__value">    </span>
             <span class="workout__unit">m</span>
           </div>
@@ -256,13 +267,13 @@ class App {
     workoutList.insertAdjacentHTML('beforeend', html);
   }
 
-  _renderWorkoutMarker(workout) {
+  _renderWorkoutMarker(workout, maxHeight = 100, maxWidth = 250) {
     L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
-          maxHeight: 100,
-          maxWidth: 250,
+          maxHeight: maxHeight,
+          maxWidth: maxWidth,
           autoClose: false,
           closeOnClick: false,
           className: `${workout.type}-popup`,
