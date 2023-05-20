@@ -2,11 +2,12 @@
   --color-brand--1: #ffb545;
   --color-brand--2: #00c46a;
 
-  --color-dark--1: #2d3439;
-  --color-dark--2: #42484d;
-  --color-light--1: #aaa;
-  --color-light--2: #ececec;
-  --color-light--3: rgb(214, 222, 224);
+  --color-dark--1: white;
+  --color-dark--2: white;
+  --color-light--1: rgb(37, 37, 37);
+  --color-light--2: rgb(37, 37, 37);
+  --color-light--3: white(214, 222, 224);
+  --global-shadow: 0px 1px 7px -4px black;
 }
 
 * {
@@ -61,7 +62,7 @@ a:visited {
 }
 
 .logo {
-  height: 2.2rem;
+  height: 40px;
   align-self: center;
   /* margin-bottom: 13px; */
 }
@@ -89,10 +90,6 @@ a:visited {
   flex-direction: column;
 }
 
-.top__elements {
-  display: flex;
-  justify-content: space-between;
-}
 svg {
   transition: 0.3s;
 }
@@ -107,7 +104,8 @@ svg {
 }
 .main__div {
   display: flex;
-  justify-content: flex-start;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .workout--running {
   border-left: 5px solid var(--color-brand--2);
@@ -135,7 +133,7 @@ svg {
 
 .workout__value {
   font-size: 1.5rem;
-  margin-right: 0.5rem;
+  /* margin-right: 0.5rem; */
 }
 
 .workout__unit {
@@ -150,7 +148,7 @@ svg {
   border-radius: 11px;
   padding: 1.5rem 2.75rem;
   margin-bottom: 1.75rem;
-
+  box-shadow: var(--global-shadow);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 0.5rem 2.5rem;
@@ -180,6 +178,7 @@ svg {
 .form__label {
   flex: 0 0 50%;
   font-size: 1.5rem;
+  color: black;
   font-weight: 600;
 }
 
@@ -191,6 +190,7 @@ svg {
   border: none;
   border-radius: 11px;
   background-color: var(--color-light--3);
+  box-shadow: var(--global-shadow);
   transition: all 0.2s;
 }
 
@@ -211,6 +211,7 @@ svg {
   border-radius: 11px;
   background-color: var(--color-light--3);
   font-weight: 800;
+  box-shadow: var(--global-shadow);
   transition: 0.2s;
 }
 
@@ -236,7 +237,6 @@ svg {
 #map {
   flex: 1;
   height: 100%;
-  background-color: var(--color-light--1);
 }
 
 @media (min-width: 200px) and (max-width: 500px) {
@@ -253,10 +253,27 @@ svg {
     flex-direction: column-reverse;
   }
 
+  .popup_message {
+    position: absolute;
+    top: 6px;
+    right: 110px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 15px 8px;
+    align-items: center;
+    transition: 0.3s;
+    height: 19px;
+    display: flex;
+    justify-content: center;
+    transform: translateY(-5rem);
+    color: white;
+    z-index: 1938329839832;
+    box-shadow: var(--global-shadow);
+  }
   .workout__title {
     font-size: 14px;
     font-weight: 600;
-    margin-left: 9px;
     grid-column: 1 / -1;
   }
   .workout__icon {
@@ -265,7 +282,8 @@ svg {
   }
 
   .workout__value {
-    font-size: 13px;
+    font-weight: bolder;
+    font-size: 45px;
   }
   .workout__unit {
     font-size: 9px;
@@ -291,10 +309,12 @@ svg {
   .workout {
     background-color: var(--color-dark--2);
     border-radius: 11px;
-    padding: 12px 4px;
+    padding: 5px 4px;
     /* margin-bottom: 1.75rem; */
-    width: 10rem;
+    width: 95px;
     cursor: pointer;
+    box-shadow: var(--global-shadow);
+
     margin: 10px;
     display: flex;
     grid-template-columns: 1fr 1fr 1fr 1fr;
