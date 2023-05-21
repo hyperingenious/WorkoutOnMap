@@ -240,16 +240,16 @@ class App {
     //display popup-message
     popup_message.style.transform = 'translateY(4rem)';
     if (workout.type === 'running') {
-      popup_message.style.color = 'var(--color-brand--2)';
+      popup_message.style.background = 'var(--color-brand--2)';
     } else {
-      popup_message.style.color = 'var(--color-brand--1)';
+      popup_message.style.background = 'var(--color-brand--1)';
     }
     popup_message.textContent = `${workout.type[0].toUpperCase()}${workout.type.slice(
       1
     )} popup added`;
     setTimeout(
       () => (popup_message.style.transform = 'translateY(-5rem)'),
-      500
+      700
     );
 
     // Set all the items to the local storage
