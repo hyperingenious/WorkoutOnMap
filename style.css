@@ -36,37 +36,29 @@ body {
   align-content: space-around;
 }
 /* full and small */
-.full_arrow_2 {
-  box-shadow: var(--global-shadow);
+.full_arrow {
   border-radius: 50%;
-  position: absolute;
-  display: flex;
   transform: translateY(-4rem);
+  display: flex;
   transition: 0.3s;
-  top: 4px;
-  /* border: 1px solid black; */
-  right: 9px;
-  width: 38px;
-  background: var(--color-brand--2);
-  height: 38px;
+  width: 34px;
+  height: 34px;
+  box-shadow: var(--global-shadow);
   align-items: center;
   justify-content: center;
+  position: absolute;
 }
+.full_arrow_2 {
+  top: 43px;
+  right: 9px;
+  background: var(--color-brand--2);
+}
+
 .full_arrow_1 {
-  box-shadow: var(--global-shadow);
-  border-radius: 50%;
-  position: absolute;
-  display: flex;
-  transform: translateY(-4rem);
-  transition: 0.3s;
-  top: 23px;
-  /* border: 1px solid black; */
-  left: 12px;
-  width: 38px;
-  background-image: url('bg-map.jpg');
-  height: 38px;
-  align-items: center;
-  justify-content: center;
+  top: 43px;
+  left: 8px;
+  /* background-image: url('bg-map.jpg'); */
+  background: var(--color-brand--1);
 }
 
 /* GENERAL */
