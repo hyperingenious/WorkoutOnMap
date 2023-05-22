@@ -38,7 +38,6 @@ body {
 /* full and small */
 .full_arrow {
   border-radius: 50%;
-  transform: translateY(-4rem);
   display: flex;
   transition: 0.3s;
   width: 34px;
@@ -49,13 +48,15 @@ body {
   position: absolute;
 }
 .full_arrow_2 {
-  top: 43px;
+  top: 4px;
   right: 9px;
-  background: var(--color-brand--2);
+  border: 1.5px solid var(--color-brand--2);
+  /* background: var(--color-brand--2); */
+  transform: translateY(-4rem);
 }
 
 .full_arrow_1 {
-  top: 43px;
+  top: 4px;
   left: 8px;
   /* background-image: url('bg-map.jpg'); */
   background: var(--color-brand--1);
@@ -226,8 +227,7 @@ svg {
   margin: 14px -12px;
   border: none;
   border-radius: 11px;
-  background-color: white;
-  border: 2px solid var(--color-brand--2);
+  background-color: var(--color-brand--2);
   font-weight: 800;
   box-shadow: var(--global-shadow);
   transition: 0.2s;
