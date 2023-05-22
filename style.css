@@ -36,7 +36,7 @@ body {
   align-content: space-around;
 }
 /* full and small */
-.full_arrow {
+.full_arrow_2 {
   box-shadow: var(--global-shadow);
   border-radius: 50%;
   position: absolute;
