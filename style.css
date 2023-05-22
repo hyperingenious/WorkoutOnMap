@@ -52,6 +52,22 @@ body {
   align-items: center;
   justify-content: center;
 }
+.full_arrow_1 {
+  box-shadow: var(--global-shadow);
+  border-radius: 50%;
+  position: absolute;
+  display: flex;
+  transform: translateY(-4rem);
+  transition: 0.3s;
+  top: 23px;
+  /* border: 1px solid black; */
+  left: 12px;
+  width: 38px;
+  background-image: url('bg-map.jpg');
+  height: 38px;
+  align-items: center;
+  justify-content: center;
+}
 
 /* GENERAL */
 a:link,
