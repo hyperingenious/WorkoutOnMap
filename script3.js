@@ -56,6 +56,7 @@ const workoutList = document.querySelector('.workoutList');
 // const inputCadence = document.querySelector('.form__input--cadence');
 // const inputElevation = document.querySelector('.form__input--elevation');
 const sidebar = document.querySelector('.sidebar');
+const full_arrow_1 = document.querySelector('.full_arrow_1');
 const full_arrow_2 = document.querySelector('.full_arrow_2');
 const popup_message = document.querySelector('.popup_message');
 
@@ -85,7 +86,8 @@ class App {
     */
     form.addEventListener('submit', this._newWorkout.bind(this));
     containerWorkouts.addEventListener('click', this._moveMap.bind(this));
-    full_arrow_2.addEventListener('click', this._fullScreen);
+    full_arrow_2.addEventListener('click', this._fullScreen.bind(this));
+    // full_arrow_1.addEventListener('click', this._mapFullScreen);
   }
   _getCurrentLocation(e) {
     const { latitude: lat, longitude: lng } = e.coords;
@@ -136,6 +138,7 @@ class App {
   // }
 
   _fullScreen(e) {
+    console.log(e);
     if (e.target.classList == 'open') {
       full_arrow_2.innerHTML = '';
       full_arrow_2.innerHTML =
@@ -145,8 +148,11 @@ class App {
       full_arrow_2.innerHTML = '';
       full_arrow_2.innerHTML =
         '<svg class="open" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="black" viewBox="0 0 256 256"><path d="M212,48V96a4,4,0,0,1-8,0V57.66l-57.17,57.17a4,4,0,0,1-5.66-5.66L198.34,52H160a4,4,0,0,1,0-8h48A4,4,0,0,1,212,48ZM109.17,141.17,52,198.34V160a4,4,0,0,0-8,0v48a4,4,0,0,0,4,4H96a4,4,0,0,0,0-8H57.66l57.17-57.17a4,4,0,0,0-5.66-5.66Z"></path></svg>';
-
-      sidebar.style.height = '35%';
+      if (this.#workout) {
+        sidebar.style.height = '35%';
+      } else if (!this.#workout) {
+        sidebar.style.height = '6%';
+      }
     }
   }
   _showForm(mapE) {
