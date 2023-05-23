@@ -39,27 +39,27 @@ body {
 .full_arrow {
   border-radius: 50%;
   display: flex;
-  transition: 0.3s;
+  transition: 0.1s;
   width: 34px;
   height: 34px;
   box-shadow: var(--global-shadow);
   align-items: center;
   justify-content: center;
+  background-color: var(--color-brand--2);
   position: absolute;
+  transform: translateY(-4rem);
 }
 .full_arrow_2 {
   top: 4px;
   right: 9px;
-  border: 1.5px solid var(--color-brand--2);
+  /* border: 1.5px solid var(--color-brand--2); */
   /* background: var(--color-brand--2); */
-  transform: translateY(-4rem);
 }
 
 .full_arrow_1 {
   top: 4px;
   left: 8px;
-  /* background-image: url('bg-map.jpg'); */
-  background: var(--color-brand--1);
+  /* background: var(--color-brand--1); */
 }
 
 /* GENERAL */
@@ -162,7 +162,7 @@ svg {
 
 .form {
   background-color: var(--color-dark--2);
-  border-radius: 11px;
+  border-radius: 3px;
   padding: 1.5rem 2.75rem;
   margin-bottom: 1.75rem;
   box-shadow: var(--global-shadow);
@@ -206,7 +206,7 @@ svg {
   font-size: 1.4rem;
   color: var(--color-brand--2);
   border: none;
-  border-radius: 11px;
+  border-radius: 3px;
   background-color: var(--color-light--3);
   box-shadow: var(--global-shadow);
   transition: all 0.2s;
@@ -226,7 +226,7 @@ svg {
   font-size: 1.7rem;
   margin: 14px -12px;
   border: none;
-  border-radius: 11px;
+  border-radius: 3px;
   background-color: var(--color-brand--2);
   font-weight: 800;
   box-shadow: var(--global-shadow);
@@ -314,7 +314,7 @@ svg {
   }
   .form {
     background-color: var(--color-dark--2);
-    border-radius: 11px;
+    border-radius: 3px;
     margin: 12px;
     display: flex;
     grid-template-columns: 1fr 1fr;
@@ -326,7 +326,7 @@ svg {
   }
   .workout {
     background-color: var(--color-dark--2);
-    border-radius: 11px;
+    border-radius: 3px;
     padding: 5px 4px;
     /* margin-bottom: 1.75rem; */
     width: 95px;
@@ -347,7 +347,7 @@ svg {
     font-size: 1.7rem;
     margin: 2px -12px;
     border: none;
-    border-radius: 11px;
+    border-radius: 3px;
     background-color: var(--color-light--3);
     font-weight: 800;
     transition: 0.2s;
@@ -361,8 +361,9 @@ svg {
     flex-basis: 0rem;
     background-color: var(--color-dark--1);
     padding: 10px 0px;
+    border-bottom: 4px solid #ababab;
     display: flex;
-    height: 06%;
+    height: 08%;
     flex-direction: column;
     justify-content: center;
     align-content: center;
@@ -384,7 +385,7 @@ svg {
 .leaflet-popup .leaflet-popup-content-wrapper {
   background-color: var(--color-dark--1);
   color: var(--color-light--2);
-  border-radius: 11px;
+  border-radius: 3px;
   padding-right: 0.6rem;
 }
 
