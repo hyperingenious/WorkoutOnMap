@@ -87,7 +87,7 @@ class App {
     form.addEventListener('submit', this._newWorkout.bind(this));
     containerWorkouts.addEventListener('click', this._moveMap.bind(this));
     full_arrow_2.addEventListener('click', this._fullScreen.bind(this));
-    // full_arrow_1.addEventListener('click', this._mapFullScreen);
+    full_arrow_1.addEventListener('click', this._mapFullScreen);
   }
   _getCurrentLocation(e) {
     const { latitude: lat, longitude: lng } = e.coords;
@@ -142,12 +142,12 @@ class App {
     if (e.target.classList == 'open') {
       full_arrow_2.innerHTML = '';
       full_arrow_2.innerHTML =
-        '<svg class="close" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#00c46a" viewBox="0 0 256 256"><path d="M210.83,50.83,153.66,108H192a4,4,0,0,1,0,8H144a4,4,0,0,1-4-4V64a4,4,0,0,1,8,0v38.34l57.17-57.17a4,4,0,1,1,5.66,5.66ZM112,140H64a4,4,0,0,0,0,8h38.34L45.17,205.17a4,4,0,0,0,5.66,5.66L108,153.66V192a4,4,0,0,0,8,0V144A4,4,0,0,0,112,140Z"></path></svg>';
+        '<svg class="close" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" viewBox="0 0 256 256"><path d="M210.83,50.83,153.66,108H192a4,4,0,0,1,0,8H144a4,4,0,0,1-4-4V64a4,4,0,0,1,8,0v38.34l57.17-57.17a4,4,0,1,1,5.66,5.66ZM112,140H64a4,4,0,0,0,0,8h38.34L45.17,205.17a4,4,0,0,0,5.66,5.66L108,153.66V192a4,4,0,0,0,8,0V144A4,4,0,0,0,112,140Z"></path></svg>';
       sidebar.style.height = '90%';
     } else {
       full_arrow_2.innerHTML = '';
       full_arrow_2.innerHTML =
-        '<svg class="open" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="#00c46a" viewBox="0 0 256 256"><path d="M212,48V96a4,4,0,0,1-8,0V57.66l-57.17,57.17a4,4,0,0,1-5.66-5.66L198.34,52H160a4,4,0,0,1,0-8h48A4,4,0,0,1,212,48ZM109.17,141.17,52,198.34V160a4,4,0,0,0-8,0v48a4,4,0,0,0,4,4H96a4,4,0,0,0,0-8H57.66l57.17-57.17a4,4,0,0,0-5.66-5.66Z"></path></svg>';
+        '<svg class="open" xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="white" viewBox="0 0 256 256"><path d="M212,48V96a4,4,0,0,1-8,0V57.66l-57.17,57.17a4,4,0,0,1-5.66-5.66L198.34,52H160a4,4,0,0,1,0-8h48A4,4,0,0,1,212,48ZM109.17,141.17,52,198.34V160a4,4,0,0,0-8,0v48a4,4,0,0,0,4,4H96a4,4,0,0,0,0-8H57.66l57.17-57.17a4,4,0,0,0-5.66-5.66Z"></path></svg>';
 
       /*
         this code is not working properly there might be some bugs in here
@@ -164,6 +164,19 @@ class App {
       */
     }
   }
+  _mapFullScreen(e) {
+    if (e.target.classList == 'open') {
+      sidebar.style.height = '8%';
+      e.target.classList.remove('open');
+      e.target.classList.add('close');
+      console.log('hello');
+    } else if (e.target.classList == 'close') {
+      sidebar.style.height = '35%';
+      e.target.classList.remove('close');
+      e.target.classList.add('open');
+      console.log('bye');
+    }
+  }
   _showForm(mapE) {
     // sidebar.addEventListener('click', this._cancel.bind(this));
 
@@ -172,6 +185,7 @@ class App {
     form.classList.remove('hidden');
     inputType.focus();
     full_arrow_2.style.transform = 'translateY(0rem)';
+    full_arrow_1.style.transform = 'translateY(0rem)';
     if (screen.width <= 412) {
       sidebar.style.height = '35%';
     }
@@ -264,7 +278,7 @@ class App {
     )} popup added`;
     setTimeout(
       () => (popup_message.style.transform = 'translateY(-5rem)'),
-      700
+      1000
     );
 
     // Set all the items to the local storage
