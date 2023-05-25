@@ -15,7 +15,7 @@ class Workout {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
     // prettier-ignore
-    this.description = `${this.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'} ${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
+    this.description = `${this.type === 'running' ? '🏃‍♂️' : '🚴‍♀️'}${this.type[0].toUpperCase()}${this.type.slice(1)} on ${months[this.date.getMonth()]} ${this.date.getDate()}`;
   }
 }
 
@@ -35,7 +35,7 @@ class Cycling extends Workout {
   type = 'cycling';
   constructor(coords, distance, elevationGain) {
     super(coords, distance);
-    // this.elevationGain = elevationGain;
+    this.elevationGain = elevationGain;
     this._setDescription();
   }
   calcSpeed() {
@@ -63,11 +63,12 @@ const popup_message = document.querySelector('.popup_message');
 class App {
   // [rivate properties  | private fields
   #map;
-  #mapZoomLevel = 14;
+  #mapZoomLevel = 13;
   #mapEvent;
   #workout = [];
   #data;
   #currentCoords;
+  #polyline;
 
   constructor() {
     navigator.geolocation.getCurrentPosition(
@@ -190,7 +191,7 @@ class App {
     inputType.focus();
     full_arrow_2.style.transform = 'translateY(0rem)';
     full_arrow_1.style.transform = 'translateY(0rem)';
-    if (screen.width <= 412) {
+    if (screen.width <= 500) {
       sidebar.style.height = '35%';
     }
   }
@@ -199,6 +200,9 @@ class App {
     // setTimeout(() => ((form.style.display = 'grid'), 1000));
   }
   _moveMap(e) {
+    // Removing the old polyline
+    if (this.#polyline) this.#polyline.remove();
+
     const workoutEl = e.target.closest('.workout');
 
     if (!workoutEl) {
@@ -209,16 +213,36 @@ class App {
       obj => obj.id === workoutEl.dataset.id
     ).coords; // getting the coords of current object
 
-    sidebar.style.height = '8%';
-    const polyline = L.polyline([
-      this.#currentCoords,
-      { lat: workout[0], lng: workout[1] },
-    ]).addTo(this.#map);
+    const pointerCoords = {
+      lat: workout[0],
+      lng: workout[1],
+    };
 
-    this.#map.setView(workout, this.#mapZoomLevel, {
-      animate: true,
-      pan: { duration: 1 },
-    }); // ([lat, lng], zoomValue , {options})
+    sidebar.style.height = '8%';
+
+    // Creating the polyline
+    this._createPolyline(this.#currentCoords, pointerCoords);
+
+    // Adjusting to the points
+    this._adjustMapToPoints(this.#currentCoords, pointerCoords);
+
+    // this.#map.setView(workout, this.#mapZoomLevel, {
+    //   animate: true,
+    //   pan: { duration: 1 },
+    // }); // ([lat, lng], zoomValue , {options})
+  }
+  _createPolyline(point1, point2) {
+    this.#polyline = L.polyline([point1, point2], {
+      color: 'red', // Line color
+      weight: 5, // Line weight in pixels
+      opacity: 1, // Line opacity (0.0 to 1.0)
+      dashArray: '10, 5', // Line dash pattern (e.g., "10, 5" for dashes of length 10px and gaps of length 5px)
+      lineCap: 'butt', // Line cap style ('butt', 'round', 'square')
+    }).addTo(this.#map);
+  }
+  _adjustMapToPoints(point1, point2) {
+    const bounds = L.latLngBounds(point1, point2);
+    this.#map.fitBounds(bounds, this.#mapZoomLevel); // (bounds, setMaxZoomValue)
   }
 
   // _toggleElevationField() {
@@ -226,7 +250,7 @@ class App {
   //   inputCadence.closest('.form__row').classList.toggle('form__row--hidden');
   // }
 
-  _newWorkout(e) {
+  async _newWorkout(e) {
     e.preventDefault();
     let workout;
 
@@ -249,8 +273,30 @@ class App {
 
     // If activity cycling, create cycling object
     if (type === 'cycling') {
+      /*
+      // getting elevation
+      const makingPromise = await Promise.all([
+        fetch(
+          `https://geocode.xyz/${this.#currentCoords.lat},${
+            this.#currentCoords.lng
+          }?geoit=json&auth=831253157316286630930x110214 `
+        ),
+        fetch(
+          `https://geocode.xyz/${lat},${lng}?geoit=json&auth=831253157316286630930x110214 `
+        ),
+      ]);
+      const currEleData = await makingPromise[0].json();
+      const markEleData = await makingPromise[1].json();
+
+      const currentElevation = currEleData.elevation;
+      const markedElevation = markEleData.elevation;
+      console.log(currentElevation, markedElevation);
+      const elevationGain = markedElevation - currentElevation;
+      console.log(elevationGain);
+      */
+
       // calling class inside a class
-      workout = new Cycling([lat, lng], distance); //, distance, duration, elevation
+      workout = new Cycling([lat, lng], distance); //, distance, elevation
     }
 
     // Add new object to workout array
@@ -292,19 +338,18 @@ class App {
 
   _renderWorkout(workout) {
     let html = `
-    <li class="workout workout--${workout.type}" data-id="${workout.id}">
-    <div class="main__div">
+   <li class="workout workout--${workout.type}" data-id="${workout.id}">
+  <div class="main__div">
     <div class="workout__details">
-            <span class="workout__value">${workout.distance}</span>
-            <span class="workout__unit">km</span>
-            </div>
-            <div class="top__elements">
-                  <h2 class="workout__title">${workout.description.substring(
-                    4
-                  )}</h2>
-                  
-                  </div>
-          </li>
+      <span class="workout__value">${workout.distance}</span>
+      <span class="workout__unit">km</span>
+    </div>
+    <div class="top__elements">
+      <h2 class="workout__title">${workout.description.substring(4)}</h2>
+    </div>
+  </div>
+</li>
+
 `;
     workoutList.insertAdjacentHTML('beforeend', html);
   }
