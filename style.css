@@ -37,11 +37,11 @@ body {
 }
 /* full and small */
 .full_arrow {
-  border-radius: 50%;
+  border-radius: 15%;
   display: flex;
   transition: 0.1s;
-  width: 34px;
-  height: 34px;
+  width: 51px;
+  height: 43px;
   box-shadow: var(--global-shadow);
   align-items: center;
   justify-content: center;
