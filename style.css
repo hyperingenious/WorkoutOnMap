@@ -41,6 +41,7 @@ body {
   display: flex;
   transition: 0.4s;
   width: 51px;
+  z-index: 12;
   height: 43px;
   box-shadow: var(--global-shadow);
   align-items: center;
@@ -75,15 +76,14 @@ a:visited {
 .sidebar {
   flex-basis: 50rem;
   background-color: var(--color-dark--1);
-  padding: 3rem 5rem 4rem 5rem;
   display: flex;
   flex-direction: column;
 }
 
 .logo {
   height: 20px;
+  margin: 9px 0px;
   align-self: center;
-  /* margin-bottom: 16px; */
 }
 
 .workouts {
@@ -364,11 +364,11 @@ a:visited {
   .sidebar {
     background-color: var(--color-dark--1);
     height: 8%;
-    border-bottom: 4px solid #ababab;
+    width: 100%;
+    border-bottom: 2px solid #ababab;
     flex-direction: column;
     flex-basis: 0;
     place-content: center;
-    padding: 10px 0;
     transition: all 0.4s ease-in;
     display: flex;
     position: fixed;

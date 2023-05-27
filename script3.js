@@ -174,7 +174,7 @@ class App {
 
   _mapFullScreen(e) {
     if (e.target.classList == 'open') {
-      sidebar.style.height = '11%';
+      sidebar.style.height = '11zz%';
       e.target.classList.remove('open');
       e.target.classList.add('close');
     } else if (e.target.classList == 'close') {
