@@ -41,10 +41,14 @@ body {
   border-radius: 15%;
   justify-content: center;
   align-items: center;
-  transition: all .1s;
+  transition: all .4s;
   display: flex;
   position: fixed;
   transform: translateY(-7rem);
+}
+
+.full_arrow > svg {
+  margin: 12px;
 }
 
 .full_arrow_2 {
@@ -70,7 +74,7 @@ a:link, a:visited {
 }
 
 .logo {
-  height: 40px;
+  height: 20px;
   align-self: center;
 }
 
@@ -95,10 +99,6 @@ a:link, a:visited {
   margin-bottom: 1.75rem;
   padding: 1.5rem 2.25rem;
   display: flex;
-}
-
-svg {
-  transition: all .3s;
 }
 
 .delete:hover, .edit:hover {
@@ -162,7 +162,7 @@ svg {
   gap: .5rem 2.5rem;
   margin-bottom: 1.75rem;
   padding: 1.5rem 2.75rem;
-  transition: all .3s ease-in;
+  transition: all .4s ease-in;
   display: grid;
 }
 
@@ -200,7 +200,7 @@ svg {
   padding: .3rem 1.1rem;
   font-family: inherit;
   font-size: 1.4rem;
-  transition: all .2s;
+  transition: all .4s;
 }
 
 .form__input:focus {
@@ -220,7 +220,7 @@ svg {
   font-family: inherit;
   font-size: 1.7rem;
   font-weight: 800;
-  transition: all .2s;
+  transition: all .4s;
 }
 
 .copyright {
@@ -268,7 +268,7 @@ svg {
     padding: 15px 8px;
     font-size: 13px;
     font-weight: 600;
-    transition: all .3s;
+    transition: all .4s;
     display: flex;
     position: absolute;
     top: 6px;
@@ -312,7 +312,7 @@ svg {
     grid-template-columns: 1fr 1fr;
     justify-content: center;
     align-items: stretch;
-    margin: 12px;
+    margin: 36px 12px 12px;
     display: flex;
   }
 
@@ -340,7 +340,7 @@ svg {
     font-family: inherit;
     font-size: 1.7rem;
     font-weight: 800;
-    transition: all .2s;
+    transition: all .4s;
   }
 
   .form__label {
@@ -352,13 +352,16 @@ svg {
   .sidebar {
     background-color: var(--color-dark--1);
     height: 8%;
+    z-index: 2147483647;
     border-bottom: 4px solid #ababab;
     flex-direction: column;
     flex-basis: 0;
     place-content: center;
     padding: 10px 0;
-    transition: all .3s ease-in;
+    transition: all .4s ease-in;
     display: flex;
+    position: fixed;
+    top: 0;
   }
 
   .workouts {

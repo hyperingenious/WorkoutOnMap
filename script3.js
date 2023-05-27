@@ -174,7 +174,7 @@ class App {
 
   _mapFullScreen(e) {
     if (e.target.classList == 'open') {
-      sidebar.style.height = '8%';
+      sidebar.style.height = '11%';
       e.target.classList.remove('open');
       e.target.classList.add('close');
     } else if (e.target.classList == 'close') {
@@ -190,8 +190,8 @@ class App {
     form.style.display = 'block';
     form.classList.remove('hidden');
     inputType.focus();
-    full_arrow_2.style.transform = 'translateY(0rem)';
-    full_arrow_1.style.transform = 'translateY(0rem)';
+    full_arrow_2.style.transform = 'translateY(1rem)';
+    full_arrow_1.style.transform = 'translateY(1rem)';
     if (screen.width <= 500) {
       sidebar.style.height = '35%';
     }
@@ -219,7 +219,7 @@ class App {
       lng: workout[1],
     };
 
-    sidebar.style.height = '8%';
+    sidebar.style.height = '11%';
 
     // Creating the polyline
     this._createPolyline(this.#currentCoords, pointerCoords);

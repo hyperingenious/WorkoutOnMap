@@ -39,7 +39,7 @@ body {
 .full_arrow {
   border-radius: 15%;
   display: flex;
-  transition: 0.1s;
+  transition: 0.4s;
   width: 51px;
   height: 43px;
   box-shadow: var(--global-shadow);
@@ -48,6 +48,9 @@ body {
   background-color: var(--color-brand--2);
   position: fixed;
   transform: translateY(-7rem);
+}
+.full_arrow > svg {
+  margin: 12px;
 }
 .full_arrow_2 {
   top: 4px;
@@ -78,9 +81,9 @@ a:visited {
 }
 
 .logo {
-  height: 40px;
+  height: 20px;
   align-self: center;
-  /* margin-bottom: 13px; */
+  /* margin-bottom: 16px; */
 }
 
 .workouts {
@@ -106,9 +109,6 @@ a:visited {
   flex-direction: column;
 }
 
-svg {
-  transition: 0.3s;
-}
 .delete:hover,
 .edit:hover {
   fill: white;
@@ -172,7 +172,7 @@ svg {
 
   /* Match height and activity boxes */
   height: 9.25rem;
-  transition: 0.3s ease-in;
+  transition: 0.4s ease-in;
 }
 
 .form.hidden {
@@ -209,7 +209,7 @@ svg {
   border-radius: 3px;
   background-color: var(--color-light--3);
   box-shadow: var(--global-shadow);
-  transition: all 0.2s;
+  transition: all 0.4s;
 }
 
 .form__input:focus {
@@ -230,7 +230,7 @@ svg {
   background-color: var(--color-brand--2);
   font-weight: 800;
   box-shadow: var(--global-shadow);
-  transition: 0.2s;
+  transition: 0.4s;
 }
 
 .copyright {
@@ -280,7 +280,7 @@ svg {
     border-radius: 3px;
     padding: 15px 8px;
     align-items: center;
-    transition: 0.3s;
+    transition: 0.4s;
     height: 19px;
     display: flex;
     justify-content: center;
@@ -314,15 +314,19 @@ svg {
   }
   .form {
     background-color: var(--color-dark--2);
-    border-radius: 3px;
-    margin: 12px;
-    display: flex;
-    grid-template-columns: 1fr 1fr;
     width: 34rem;
     height: 12.6rem;
-    align-items: stretch;
-    justify-content: center;
+    border-radius: 3px;
     flex-direction: column;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: stretch;
+    /* margin: 12px; */
+    margin-top: 36px;
+    margin-bottom: 12px;
+    margin-left: 12px;
+    margin-right: 12px;
+    display: flex;
   }
   .workout {
     background-color: var(--color-dark--2);
@@ -350,7 +354,7 @@ svg {
     border-radius: 3px;
     background-color: var(--color-light--3);
     font-weight: 800;
-    transition: 0.2s;
+    transition: 0.4s;
   }
   .form__label {
     flex: 0 0 50%;
@@ -358,16 +362,18 @@ svg {
     font-weight: 800;
   }
   .sidebar {
-    flex-basis: 0rem;
     background-color: var(--color-dark--1);
-    padding: 10px 0px;
+    height: 8%;
     border-bottom: 4px solid #ababab;
-    display: flex;
-    height: 08%;
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
-    transition: 0.3s ease-in;
+    flex-basis: 0;
+    place-content: center;
+    padding: 10px 0;
+    transition: all 0.4s ease-in;
+    display: flex;
+    position: fixed;
+    top: 0;
+    z-index: 891398398398;
   }
 
   .workouts {
