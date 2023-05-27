@@ -1,0 +1,8 @@
+# dependencies
+node_modules
+.parce-cache
+bg-map.jpg
+download.png
+icon.png
+index.html
+logo.png

@@ -47,7 +47,7 @@ body {
   justify-content: center;
   background-color: var(--color-brand--2);
   position: fixed;
-  transform: translateY(-4rem);
+  transform: translateY(-7rem);
 }
 .full_arrow_2 {
   top: 4px;

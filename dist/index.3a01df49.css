@@ -34,17 +34,17 @@ body {
 }
 
 .full_arrow {
-  width: 34px;
-  height: 34px;
+  width: 51px;
+  height: 43px;
   box-shadow: var(--global-shadow);
   background-color: var(--color-brand--2);
-  border-radius: 50%;
+  border-radius: 15%;
   justify-content: center;
   align-items: center;
   transition: all .1s;
   display: flex;
   position: fixed;
-  transform: translateY(-4rem);
+  transform: translateY(-7rem);
 }
 
 .full_arrow_2 {

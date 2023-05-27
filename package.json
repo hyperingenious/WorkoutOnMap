@@ -1,5 +1,5 @@
 {
-  "name": "workoutonmap",
+  "name": "workoutcopy",
   "version": "1.0.0",
   "description": "",
   "scripts": {
@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "parcel": "^2.8.3"
+    "leaflet": "^1.9.4",
+    "parcel": "^2.9.0"
   }
 }

@@ -1,4 +1,5 @@
 ('use strict');
+import 'leaflet';
 
 class Workout {
   type;
